@@ -1,7 +1,4 @@
-/**
- * Персонаж.
- */
-public abstract class Character {
+public class Mag  {
 
     //    Начальная жизнь при создании пресонажа.
     private int liveValue = 100;
@@ -10,7 +7,7 @@ public abstract class Character {
     private boolean isLive = true;
 
     //    привелегированный
-    private boolean isPrivileged = true;
+    private boolean isPrivileged = false;
 
     public boolean isPrivileged() {
         return isPrivileged;
@@ -43,6 +40,4 @@ public abstract class Character {
     public boolean isLive() {
         return isLive;
     }
-
-
 }
