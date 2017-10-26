@@ -7,10 +7,10 @@ public interface AttackMage {
     /**
      * Дать улучшение
      */
-    void giveAnImprovement();
+    void giveAnImprovement(Character character);
 
     /**
      * Атакавать магией
      */
-    void magicAttack();
+    void magicAttack(Character character);
 }

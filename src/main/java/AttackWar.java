@@ -5,5 +5,5 @@ public interface AttackWar {
     /**
      * Атакавать
      */
-    void attackWar();
+    void attackWar(Character character);
 }

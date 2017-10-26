@@ -4,13 +4,48 @@
 public abstract class Character {
 
     //    Начальная жизнь при создании пресонажа.
-    private int liveValue = 100;
+    private double liveValue = 100;
 
     //    Живой
     private boolean isLive = true;
 
     //    привелегированный
-    private boolean isPrivileged = true;
+    private boolean isPrivileged = false;
+
+    //    расса
+    private Race race;
+
+    //    сила атаки
+    private double attackPower;
+
+    //    роль
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+
+
+    public double getAttackPower() {
+        return attackPower;
+    }
+
+    public void setAttackPower(double attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
 
     public boolean isPrivileged() {
         return isPrivileged;
@@ -23,14 +58,14 @@ public abstract class Character {
     /**
      * @return оставшаяся жизнь
      */
-    public int getLiveValue() {
+    public double getLiveValue() {
         return liveValue;
     }
 
     /**
      * @param damage - урон наносимый противником
      */
-    public void setLiveValue(int damage) {
+    public void setDamageLiveValue(double damage) {
         this.liveValue = this.liveValue - damage;
         if (this.liveValue < 0) {
             isLive = false;

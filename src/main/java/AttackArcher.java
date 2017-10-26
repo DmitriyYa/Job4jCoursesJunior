@@ -5,11 +5,11 @@ public interface AttackArcher {
     /**
      * Стрелять
      */
-    void shoot();
+    void shoot(Character character);
 
     /**
      * Атакавать
      */
-    void attackArcher();
+    void attackArcher(Character character);
 
 }
