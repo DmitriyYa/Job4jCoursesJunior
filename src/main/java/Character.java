@@ -80,4 +80,5 @@ public abstract class Character {
     }
 
 
+    public abstract void makeMove(Team team, Team oponent);
 }
