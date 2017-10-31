@@ -79,6 +79,10 @@ public abstract class Character {
         return isLive;
     }
 
-
+    /**
+     * сделать ход
+     * @param team команда нападающего
+     * @param oponent команда противника
+     */
     public abstract void makeMove(Team team, Team oponent);
 }

@@ -6,6 +6,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * Copyright © LLP JazzSoft
  */
 public class Random {
+
+    /**
+     * Генерация случайного числа
+     * @param min начало диапазона
+     * @param max конец диапазона
+     * @return случайное число в диапазоне
+     */
     public static int randomInt(int min, int max){
         int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         return randomNum;

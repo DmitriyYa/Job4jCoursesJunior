@@ -81,12 +81,16 @@ public class Main {
         game.runGame();
     }
 
-    private static Team createTeamOrgAliance() {
+    /**
+     * выбрать команду из орков
+     * @return команду орков
+     */
+     static Team createTeamOrgAliance() {
         List<Character> teameList = new ArrayList<>();
         int i = (int) 0 + (int) (Math.random() * 2);
         if (i == 0) {
             teameList.addAll(createDataceOrgs());
-            return new Team(teameList, "Оки");
+            return new Team(teameList, "Орки");
         } else {
             teameList.addAll(createDataceNolivs());
             return new Team(teameList, "Нежить");
@@ -94,7 +98,11 @@ public class Main {
 
     }
 
-    private static Team createTeamHumanAliance() {
+    /**
+     * выбрать команду людей
+     * @return команду людей
+     */
+     static Team createTeamHumanAliance() {
         List<Character> teameList = new ArrayList<>();
         int i = (int) 0 + (int) (Math.random() * 2);
         if (i == 0) {
@@ -106,21 +114,8 @@ public class Main {
         }
     }
 
-
-//    /**
-//     * Выбираем случайные числа из
-//     *
-//     * @param start начало диапазона
-//     * @param end   конец диапазона
-//     * @return
-//     */
-//    private static int rand(int start, int end) {
-//        return start + (int) (Math.random() * end);
-//
-//    }
-
     //создать отряд Эльфов
-    private static ArrayList<Character> createDataceElf() {
+     static ArrayList<Character> createDataceElf() {
         ArrayList<Character> listElf = new ArrayList<Character>();
         ElfMag elfMag = new ElfMag();
         listElf.add(elfMag);
@@ -142,7 +137,7 @@ public class Main {
     }
 
     //создать отряд Людей
-    private static ArrayList<Character> createDataceHuman() {
+     static ArrayList<Character> createDataceHuman() {
         ArrayList<Character> listHuman = new ArrayList<Character>();
         HumanMag humanMag = new HumanMag();
         listHuman.add(humanMag);
@@ -164,7 +159,7 @@ public class Main {
     }
 
     //создать отряд Орков
-    private static ArrayList<Character> createDataceOrgs() {
+     static ArrayList<Character> createDataceOrgs() {
         ArrayList<Character> listOrg = new ArrayList<Character>();
         OrgMag orgMag = new OrgMag();
         listOrg.add(orgMag);
@@ -186,7 +181,7 @@ public class Main {
     }
 
     //создать отряд Нежити
-    private static ArrayList<Character> createDataceNolivs() {
+     static ArrayList<Character> createDataceNolivs() {
         ArrayList<Character> listNoLivs = new ArrayList<Character>();
         NoLivsMag noLivsMag = new NoLivsMag();
         listNoLivs.add(noLivsMag);
@@ -207,229 +202,5 @@ public class Main {
         return listNoLivs;
     }
 
-//    //возвращает два отряда, противников.
-//    private static List<ArrayList<Character>> selectDetachments() {
-//        List<ArrayList<Character>> listResult = new ArrayList<ArrayList<Character>>();
-//
-//        if (rand(0, 2) == 0) {
-//            listResult.add(createDataceElf());
-//        } else listResult.add(createDataceHuman());
-//
-//        if (rand(0, 2) == 0) {
-//            listResult.add(createDataceOrgs());
-//        } else listResult.add(createDataceNolivs());
-//
-//        return listResult;
-//    }
-
-//    // рубимся
-//    private static void fight(List<ArrayList<Character>> listFighters) {
-//        // если есть живые в обеих командах продолжаем игру
-//        while (isLive(listFighters.get(0)) && isLive(listFighters.get(1))) {
-//
-//            ArrayList<Character> list;// комманда атакующих
-//
-//            // выбираем команду атакующих
-//            switch (rand(0, 2)) {
-//
-//                case 0:
-//                    list = listFighters.get(0);
-//
-//                    //сортируем, сначала привелигерованные
-//                    list.sort(new Comparator<Character>() {
-//                        public int compare(Character o1, Character o2) {
-//                            int result = 0;
-//                            if (o1.isPrivileged() && o2.isPrivileged() || !o1.isPrivileged() && !o2.isPrivileged()) {
-//                                result = 0;
-//                            } else if (o1.isPrivileged() && !o2.isPrivileged()) {
-//                                result = 1;
-//                            } else if (!o1.isPrivileged() && o2.isPrivileged()) {
-//                                result = -1;
-//                            }
-//                            return result;
-//                        }
-//
-//                    });
-//
-//                    //атакуем по очереди каждым игроком.
-//                    for (Character character : list) {
-//
-//                        //если маг
-//                        if (character instanceof AttackMage) {
-//                            switch (rand(0, 2)) {
-//                                //добавить последнему игроку свое комманды улучшение
-//                                case 0:
-//                                    if (!list.get(list.size() - 1).isPrivileged()) {
-//                                        ((AttackMage) character).giveAnImprovement(list.get(list.size() - 1));
-//                                    }
-//                                    // атакова любого игрока противника
-//                                case 1:
-//                                    //получить игрока
-//                                    Character c = listFighters.get(1).get(rand(0, listFighters.get(1).size()));
-//                                    //атакова
-//                                    ((AttackMage) character).magicAttack(c);
-//                                    //если умер, удалить из комманды
-//                                    if (!c.isLive()) {
-//                                        listFighters.get(1).remove(c);
-//                                    }
-//                            }
-//                            coutn++;
-//                        }
-//
-//                        // если стрелок
-//                        if (character instanceof AttackArcher) {
-//                            //получить игрока
-//                            Character c = listFighters.get(1).get(rand(0, listFighters.get(1).size()));
-//                            switch (rand(0, 2)) {
-//
-//                                //Стрелять
-//                                case 0:
-//                                    //атаковать
-//                                    ((AttackArcher) character).shoot(c);
-//                                    //если умер, удалить из комманды
-//                                    if (!c.isLive()) {
-//                                        listFighters.get(1).remove(c);
-//                                    }
-//
-//                                    //Атакавать
-//                                case 1:
-//                                    //атаковать
-//                                    ((AttackArcher) character).attackArcher(c);
-//                                    //если умер, удалить из комманды
-//                                    if (!c.isLive()) {
-//                                        listFighters.get(1).remove(c);
-//                                    }
-//                            }
-//                            coutn++;
-//                        }
-//
-//                        //если воин
-//                        if (character instanceof AttackWar) {
-//                            //получить игрока
-//                            Character c = listFighters.get(1).get(rand(0, listFighters.get(1).size()));
-//                            //атакова
-//                            ((AttackWar) character).attackWar(c);
-//                            //если умер, удалить из комманды
-//                            if (!c.isLive()) {
-//                                listFighters.get(1).remove(c);
-//                            }
-//                            coutn++;
-//                        }
-//                    }
-//
-//                case 1:
-//                    list = listFighters.get(1);
-//                    //сортируем, сначала привелигерованные
-//                    list.sort(new Comparator<Character>() {
-//                        public int compare(Character o1, Character o2) {
-//                            int result = 0;
-//                            if (o1.isPrivileged() && o2.isPrivileged() || !o1.isPrivileged() && !o2.isPrivileged()) {
-//                                result = 0;
-//                            } else if (o1.isPrivileged() && !o2.isPrivileged()) {
-//                                result = 1;
-//                            } else if (!o1.isPrivileged() && o2.isPrivileged()) {
-//                                result = -1;
-//                            }
-//                            return result;
-//                        }
-//
-//                    });
-//
-//                    //атакуем по очереди каждым игроком.
-//                    for (Character character : list) {
-//
-//                        //если маг
-//                        if (character instanceof AttackMage) {
-//                            switch (rand(0, 2)) {
-//                                //добавить последнему игроку свое комманды улучшение
-//                                case 0:
-//                                    if (!list.get(list.size() - 1).isPrivileged()) {
-//                                        ((AttackMage) character).giveAnImprovement(list.get(list.size() - 1));
-//                                    }
-//                                    // атакова любого игрока противника
-//                                case 1:
-//                                    //получить игрока
-//                                    Character c = listFighters.get(0).get(rand(0, listFighters.get(0).size()));
-//                                    //атакова
-//                                    ((AttackMage) character).magicAttack(c);
-//                                    //если умер, удалить из комманды
-//                                    if (!c.isLive()) {
-//                                        listFighters.get(0).remove(c);
-//                                    }
-//                            }
-//                            coutn++;
-//                        }
-//
-//                        // если стрелок
-//                        if (character instanceof AttackArcher) {
-//                            //получить игрока
-//                            Character c = listFighters.get(0).get(rand(0, listFighters.get(0).size()));
-//                            switch (rand(0, 2)) {
-//
-//                                //Стрелять
-//                                case 0:
-//                                    //атаковать
-//                                    ((AttackArcher) character).shoot(c);
-//                                    //если умер, удалить из комманды
-//                                    if (!c.isLive()) {
-//                                        listFighters.get(0).remove(c);
-//                                    }
-//
-//                                    //Атакавать
-//                                case 1:
-//                                    //атаковать
-//                                    ((AttackArcher) character).attackArcher(c);
-//                                    //если умер, удалить из комманды
-//                                    if (!c.isLive()) {
-//                                        listFighters.get(0).remove(c);
-//                                    }
-//                            }
-//                            coutn++;
-//                        }
-//
-//                        //если воин
-//                        if (character instanceof AttackWar) {
-//                            //получить игрока
-//                            Character c = listFighters.get(0).get(rand(0, listFighters.get(0).size()));
-//                            //атакова
-//                            ((AttackWar) character).attackWar(c);
-//                            //если умер, удалить из комманды
-//                            if (!c.isLive()) {
-//                                listFighters.get(0).remove(c);
-//                            }
-//                            coutn++;
-//                        }
-//                    }
-//            }
-//        }
-//
-////        ищем победителя
-//        for (ArrayList<Character> listCharact : listFighters) {
-//            if (isLive(listCharact)) {
-//                if (listCharact.get(0) instanceof ElfArcher || listCharact.get(0) instanceof ElfMag || listCharact.get(0) instanceof ElfWar)
-//                    System.out.println(" Победили Эльфы");
-//
-//                if (listCharact.get(0) instanceof HumanArcher || listCharact.get(0) instanceof HumanMag || listCharact.get(0) instanceof HumanWar)
-//                    System.out.println(" Победили Люди");
-//
-//                if (listCharact.get(0) instanceof OrgArcher || listCharact.get(0) instanceof OrgMag || listCharact.get(0) instanceof OrgWar)
-//                    System.out.println(" Победили Огки");
-//
-//                if (listCharact.get(0) instanceof NoLivsArcher || listCharact.get(0) instanceof NoLivsMag || listCharact.get(0) instanceof NoLivsWar)
-//                    System.out.println(" Победили Нежить");
-//            }
-//        }
-//    }
-//
-////    // проверяем, что в отряде остались живые.
-////    private static boolean isLive(ArrayList<Character> listDetach) {
-////        boolean result = false;
-////        for (Character aListDetach : listDetach) {
-////            if (aListDetach.isLive()) {
-////                result = true;
-////            }
-////        }
-////        return result;
-////    }
 }
 

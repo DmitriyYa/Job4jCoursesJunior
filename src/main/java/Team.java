@@ -6,6 +6,8 @@ import java.util.List;
  * Created by Dmitriy.Yakovlev
  * Created: 28.10.17 12:35
  * Copyright © LLP JazzSoft
+ *
+ * Команда
  */
 public class Team {
 

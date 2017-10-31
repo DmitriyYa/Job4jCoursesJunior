@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
  * Created by Dmitriy.Yakovlev
  * Created: 28.10.17 12:52
  * Copyright © LLP JazzSoft
+ *
+ * Игра
  */
 public class Game {
     private static final Logger log = Logger.getLogger(Game.class);
@@ -17,6 +19,9 @@ public class Game {
         this.team2 = team2;
     }
 
+    /**
+     * Реализация игры
+     */
     public void runGame() {
         System.out.println("Начинаем игру.");
         log.info("Начинаем игру.");
