@@ -1,3 +1,15 @@
+package ru.dima.game;
+
+import ru.dima.game.alianse.Team;
+import ru.dima.game.character.Character;
+import ru.dima.game.factory.TeamFactory;
+import ru.dima.game.factory.implement.ElfFactory;
+import ru.dima.game.factory.implement.HumanFactory;
+import ru.dima.game.factory.implement.NoLivsFactory;
+import ru.dima.game.factory.implement.OrgFactory;
+import ru.dima.game.gameoneteam.Game;
+import ru.dima.game.utils.Random;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +81,7 @@ import java.util.List;
  * 1. Создать абстрактный класс описывающий все пресонажи.
  * 2. Создать классы описывающие персонажы(маг, лучник, воин).
  * 3. Создать интерфейсы поведения персонажей и реализовать их в классах.
- * 4. Реализовать сценарий игры в Main.java
+ * 4. Реализовать сценарий игры в ru.dima.game.Main.java
  */
 public class Main {
 
@@ -83,16 +95,17 @@ public class Main {
 
     /**
      * выбрать команду из орков
+     *
      * @return команду орков
      */
-     static Team createTeamOrgAliance() {
+    private static Team createTeamOrgAliance() {
         List<Character> teameList = new ArrayList<>();
-        int i = (int) 0 + (int) (Math.random() * 2);
+        int i = Random.randomInt(0, 2);
         if (i == 0) {
-            teameList.addAll(createDataceOrgs());
+            teameList.addAll(createDatace(new OrgFactory()));
             return new Team(teameList, "Орки");
         } else {
-            teameList.addAll(createDataceNolivs());
+            teameList.addAll(createDatace(new NoLivsFactory()));
             return new Team(teameList, "Нежить");
         }
 
@@ -100,106 +113,36 @@ public class Main {
 
     /**
      * выбрать команду людей
+     *
      * @return команду людей
      */
-     static Team createTeamHumanAliance() {
+    private static Team createTeamHumanAliance() {
         List<Character> teameList = new ArrayList<>();
-        int i = (int) 0 + (int) (Math.random() * 2);
+        int i = Random.randomInt(0, 2);
         if (i == 0) {
-            teameList.addAll(createDataceElf());
+            teameList.addAll(createDatace(new ElfFactory()));
             return new Team(teameList, "Эльфы");
         } else {
-            teameList.addAll(createDataceHuman());
+            teameList.addAll(createDatace(new HumanFactory()));
             return new Team(teameList, "Люди");
         }
     }
 
-    //создать отряд Эльфов
-     static ArrayList<Character> createDataceElf() {
-        ArrayList<Character> listElf = new ArrayList<Character>();
-        ElfMag elfMag = new ElfMag();
-        listElf.add(elfMag);
-        ElfArcher elfArcher1 = new ElfArcher();
-        listElf.add(elfArcher1);
-        ElfArcher elfArcher2 = new ElfArcher();
-        listElf.add(elfArcher2);
-        ElfArcher elfArcher3 = new ElfArcher();
-        listElf.add(elfArcher3);
-        ElfWar elfWar1 = new ElfWar();
-        listElf.add(elfWar1);
-        ElfWar elfWar2 = new ElfWar();
-        listElf.add(elfWar2);
-        ElfWar elfWar3 = new ElfWar();
-        listElf.add(elfWar3);
-        ElfWar elfWar4 = new ElfWar();
-        listElf.add(elfWar4);
-        return listElf;
-    }
 
-    //создать отряд Людей
-     static ArrayList<Character> createDataceHuman() {
-        ArrayList<Character> listHuman = new ArrayList<Character>();
-        HumanMag humanMag = new HumanMag();
-        listHuman.add(humanMag);
-        HumanArcher humanArcher1 = new HumanArcher();
-        listHuman.add(humanArcher1);
-        HumanArcher humanArcher2 = new HumanArcher();
-        listHuman.add(humanArcher2);
-        HumanArcher humanArcher3 = new HumanArcher();
-        listHuman.add(humanArcher3);
-        HumanWar humanWar1 = new HumanWar();
-        listHuman.add(humanWar1);
-        HumanWar humanWar2 = new HumanWar();
-        listHuman.add(humanWar2);
-        HumanWar humanWar3 = new HumanWar();
-        listHuman.add(humanWar3);
-        HumanWar humanWar4 = new HumanWar();
-        listHuman.add(humanWar4);
-        return listHuman;
-    }
+    //создать отряд
+    private static ArrayList<Character> createDatace(TeamFactory teamFactory) {
+        ArrayList<Character> list = new ArrayList<Character>();
 
-    //создать отряд Орков
-     static ArrayList<Character> createDataceOrgs() {
-        ArrayList<Character> listOrg = new ArrayList<Character>();
-        OrgMag orgMag = new OrgMag();
-        listOrg.add(orgMag);
-        OrgArcher orgArcher1 = new OrgArcher();
-        listOrg.add(orgArcher1);
-        OrgArcher orgArcher2 = new OrgArcher();
-        listOrg.add(orgArcher2);
-        OrgArcher orgArcher3 = new OrgArcher();
-        listOrg.add(orgArcher3);
-        OrgWar orgWar1 = new OrgWar();
-        listOrg.add(orgWar1);
-        OrgWar orgWar2 = new OrgWar();
-        listOrg.add(orgWar2);
-        OrgWar orgWar3 = new OrgWar();
-        listOrg.add(orgWar3);
-        OrgWar orgWar4 = new OrgWar();
-        listOrg.add(orgWar4);
-        return listOrg;
-    }
+        list.add(teamFactory.createMage());
 
-    //создать отряд Нежити
-     static ArrayList<Character> createDataceNolivs() {
-        ArrayList<Character> listNoLivs = new ArrayList<Character>();
-        NoLivsMag noLivsMag = new NoLivsMag();
-        listNoLivs.add(noLivsMag);
-        NoLivsArcher noLivsArcher1 = new NoLivsArcher();
-        listNoLivs.add(noLivsArcher1);
-        NoLivsArcher noLivsArcher2 = new NoLivsArcher();
-        listNoLivs.add(noLivsArcher2);
-        NoLivsArcher noLivsArcher3 = new NoLivsArcher();
-        listNoLivs.add(noLivsArcher3);
-        NoLivsWar noLivsWar1 = new NoLivsWar();
-        listNoLivs.add(noLivsWar1);
-        NoLivsWar noLivsWar2 = new NoLivsWar();
-        listNoLivs.add(noLivsWar2);
-        NoLivsWar noLivsWar3 = new NoLivsWar();
-        listNoLivs.add(noLivsWar3);
-        NoLivsWar noLivsWar4 = new NoLivsWar();
-        listNoLivs.add(noLivsWar4);
-        return listNoLivs;
+        for (int i = 0; i < 3; i++) {
+            list.add(teamFactory.createArcher());
+        }
+
+        for (int i = 0; i < 4; i++) {
+            list.add(teamFactory.createWar());
+        }
+        return list;
     }
 
 }

@@ -1,3 +1,5 @@
+package ru.dima.game.character;
+
 /**
  * Атака войнв
  */

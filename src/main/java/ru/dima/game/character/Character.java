@@ -1,3 +1,7 @@
+package ru.dima.game.character;
+
+import ru.dima.game.alianse.Team;
+
 /**
  * Персонаж.
  */

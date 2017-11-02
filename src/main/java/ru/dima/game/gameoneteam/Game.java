@@ -1,4 +1,8 @@
+package ru.dima.game.gameoneteam;
+
 import org.apache.log4j.Logger;
+import ru.dima.game.alianse.Team;
+import ru.dima.game.utils.Random;
 
 /**
  * Created by Dmitriy.Yakovlev
@@ -23,19 +27,15 @@ public class Game {
      * Реализация игры
      */
     public void runGame() {
-        System.out.println("Начинаем игру.");
         log.info("Начинаем игру.");
         while (true) {
             boolean ended = iteration();
             if (ended) {
-                System.out.println("ирга закончена.");
                 log.info("ирга закончена.");
                 if (team1.isSameOneAlive()){
-                    System.out.println("Победили - "+team1.getNameTeam());
                     log.info("Победили - "+team1.getNameTeam());
                 }
                 else {
-                    System.out.println("Победили - "+team2.getNameTeam());
                     log.info("Победили - "+team2.getNameTeam());
                 }
 
@@ -44,8 +44,8 @@ public class Game {
         }
     }
 
-    public boolean iteration() {
-        int i = 0 + (int) (Math.random() * 2);
+    private boolean iteration() {
+        int i = Random.randomInt(0, 2);
         boolean ended;
 
         if (i == 0) {

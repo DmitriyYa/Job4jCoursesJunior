@@ -1,3 +1,8 @@
+package ru.dima.game.alianse;
+
+import ru.dima.game.character.Character;
+import ru.dima.game.utils.Random;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -6,7 +11,7 @@ import java.util.List;
  * Created by Dmitriy.Yakovlev
  * Created: 28.10.17 12:35
  * Copyright © LLP JazzSoft
- *
+ * <p>
  * Команда
  */
 public class Team {
@@ -19,13 +24,14 @@ public class Team {
 
     public Team(List<Character> listCharacter, String nameTeam) {
         characterList = listCharacter;
-        this.nameTeam=nameTeam;
+        this.nameTeam = nameTeam;
     }
 
-//  получить название команды
+    //  получить название команды
     public String getNameTeam() {
         return nameTeam;
     }
+
     //    сортировка по улучшению
     private void sortByPriority() {
         characterList.sort(new Comparator<Character>() {

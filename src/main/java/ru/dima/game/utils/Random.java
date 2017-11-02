@@ -1,3 +1,5 @@
+package ru.dima.game.utils;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
