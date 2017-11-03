@@ -16,20 +16,32 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class NoLivsWar extends Character implements AttackWar {
-
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(NoLivsWar.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public NoLivsWar() {
         setRace(Race.Nolivs);
         setRole(Role.NoLivsWar);
     }
 
-    //    удар копьем (нанесение урона 18 HP)
+    /**
+     * удар копьем (нанесение урона 18 HP).
+     * @param character противник.
+     */
     public void attackWar(Character character) {
         setAttackPower(18);
             character.setDamageLiveValue(getAttackPower());
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -43,6 +55,9 @@ public class NoLivsWar extends Character implements AttackWar {
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Воин нежить";

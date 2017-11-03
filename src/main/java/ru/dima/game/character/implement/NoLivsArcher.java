@@ -16,26 +16,41 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class NoLivsArcher extends Character implements AttackArcher {
-
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(NoLivsArcher.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public NoLivsArcher() {
         setRace(Race.Nolivs);
         setRole(Role.NoLivsArcher);
     }
 
-    //    стрелять из лука (нанесение урона 4 HP)
+    /**
+     * стрелять из лука (нанесение урона 4 HP).
+     * @param character противник.
+     */
     public void shoot(Character character) {
         setAttackPower(4);
         character.setDamageLiveValue(getAttackPower());
     }
 
-    //    атаковать (нанесение урона 2 HP)
+    /**
+     * атаковать (нанесение урона 2 HP).
+     * @param character противник.
+     */
     public void attackArcher(Character character) {
         setAttackPower(2);
         character.setDamageLiveValue(getAttackPower());
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -54,6 +69,9 @@ public class NoLivsArcher extends Character implements AttackArcher {
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Лучник нежить";

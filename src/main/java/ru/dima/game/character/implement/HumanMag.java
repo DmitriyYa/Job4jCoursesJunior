@@ -16,22 +16,33 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class HumanMag extends Character implements AttackMage {
-
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(HumanMag.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public HumanMag() {
         setRace(Race.Human);
         setRole(Role.HumanMag);
     }
 
-    //    наложение улучшения на персонажа своего отряда.
+    /**
+     * наложение улучшения на персонажа своего отряда.
+     * @param character противник.
+     */
     public void giveAnImprovement(Character character) {
         if (character.getRace().equals(Race.Human)) {
             character.setPrivileged(true);
         }
     }
 
-    //    атаковать магией (нанесение урона 4 HP)
+    /**
+     * атаковать магией (нанесение урона 4 HP)
+     * @param character противник.
+     */
     public void magicAttack(Character character) {
         setAttackPower(4);
         if (!character.getRace().equals(Race.Human)) {
@@ -39,6 +50,10 @@ public class HumanMag extends Character implements AttackMage {
         }
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -56,6 +71,9 @@ public class HumanMag extends Character implements AttackMage {
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Маг Человек";

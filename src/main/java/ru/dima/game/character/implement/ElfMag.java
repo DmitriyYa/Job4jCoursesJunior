@@ -16,21 +16,33 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class ElfMag extends Character implements AttackMage {
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(ElfMag.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public ElfMag() {
         setRace(Race.Elf);
         setRole(Role.ElfMag);
     }
 
-    //    наложение улучшения на персонажа своего отряда
+    /**
+     * наложение улучшения на персонажа своего отряда.
+     * @param character противник.
+     */
     public void giveAnImprovement(Character character) {
         if (character.getRace().equals(Race.Elf)) {
             character.setPrivileged(true);
         }
     }
 
-    //    нанесение урона персонажу противника магией на 10 HP
+    /**
+     * нанесение урона персонажу противника магией на 10 HP.
+     * @param character противник.
+     */
     public void magicAttack(Character character) {
         setAttackPower(10);
         if (!character.getRace().equals(Race.Elf)) {
@@ -38,6 +50,10 @@ public class ElfMag extends Character implements AttackMage {
         }
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -54,6 +70,10 @@ public class ElfMag extends Character implements AttackMage {
 
         Game.count++;
     }
+
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Маг Эльф";

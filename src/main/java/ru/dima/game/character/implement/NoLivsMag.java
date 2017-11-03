@@ -16,27 +16,42 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class NoLivsMag extends Character implements AttackMage {
-
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(NoLivsMag.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public NoLivsMag() {
         setRace(Race.Nolivs);
         setRole(Role.NoLivsMag);
     }
 
-    //    наслать недуг (уменьшение силы урона персонажа противника на 50% на один ход)
+    /**
+     * наслать недуг (уменьшение силы урона персонажа противника на 50% на один ход).
+     * @param character противник.
+     */
     public void giveAnImprovement(Character character) {
         if (!character.getRace().equals(Race.Nolivs)) {
             character.setAttackPower(character.getAttackPower() / 2);
         }
     }
 
-    //    атака (нанесение урона 5 HP)
+    /**
+     * атака (нанесение урона 5 HP).
+     * @param character противник.
+     */
     public void magicAttack(Character character) {
         setAttackPower(5);
         character.setDamageLiveValue(getAttackPower());
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -54,6 +69,9 @@ public class NoLivsMag extends Character implements AttackMage {
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Лучник нежить";

@@ -6,13 +6,16 @@ package ru.dima.game.character;
 
 public interface AttackMage {
 
-    /**
-     * Дать улучшение
+
+    /** Дать улучшение.
+     * @param character свой персонаж.
      */
     void giveAnImprovement(Character character);
 
+
     /**
-     * Атакавать магией
+     * атакавать магией.
+     * @param character противник.
      */
     void magicAttack(Character character);
 }

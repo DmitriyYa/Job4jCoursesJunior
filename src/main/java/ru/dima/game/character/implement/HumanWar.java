@@ -17,23 +17,38 @@ import ru.dima.game.utils.Random;
  */
 public class HumanWar extends Character implements AttackWar {
 
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(HumanWar.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public HumanWar() {
         setRace(Race.Human);
         setRole(Role.HumanWar);
     }
 
-    //    атаковать мечом (нанесение урона 18 HP)
+    /**
+     * атаковать мечом (нанесение урона 18 HP).
+     *
+     * @param character противник.
+     */
     public void attackWar(Character character) {
         if (isPrivileged()) {
             setAttackPower(18 * 1.5);
             character.setDamageLiveValue(getAttackPower());
-        } else
+        } else {
             setAttackPower(18);
-        character.setDamageLiveValue(getAttackPower());
+            character.setDamageLiveValue(getAttackPower());
+        }
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -43,10 +58,13 @@ public class HumanWar extends Character implements AttackWar {
         this.setPrivileged(false);
 
         //логи
-        MyLog.readLog(log,Game.count,this,character,getAttackPower(),character.isLive());
+        MyLog.readLog(log, Game.count, this, character, getAttackPower(), character.isLive());
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Воин Человек";

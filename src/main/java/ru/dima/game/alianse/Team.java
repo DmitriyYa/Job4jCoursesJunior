@@ -16,23 +16,35 @@ import java.util.List;
  */
 public class Team {
 
-    //    название команды
+    /**
+     * название команды.
+     */
     private String nameTeam;
 
-    // состав команды
+    /**
+     * состав команды.
+     */
     private List<Character> characterList;
 
+    /**
+     * @param listCharacter список персонажей команды.
+     * @param nameTeam имя команды.
+     */
     public Team(List<Character> listCharacter, String nameTeam) {
         characterList = listCharacter;
         this.nameTeam = nameTeam;
     }
 
-    //  получить название команды
+    /**
+     * @return получить название команды.
+     */
     public String getNameTeam() {
         return nameTeam;
     }
 
-    //    сортировка по улучшению
+    /**
+     * сортировка по улучшению.
+     */
     private void sortByPriority() {
         characterList.sort(new Comparator<Character>() {
             public int compare(Character o1, Character o2) {
@@ -50,7 +62,11 @@ public class Team {
         });
     }
 
-    //    сделать ход
+    /**
+     * сделать ход.
+     * @param oponent противник.
+     * @return будет ли следующий ход.
+     */
     public boolean makeMove(Team oponent) {
         sortByPriority();
         for (Character c : getLiveCharacterList()) {
@@ -62,7 +78,9 @@ public class Team {
         return false;
     }
 
-    //    если кто-то жив
+    /**
+     * @return если кто-то жив.
+     */
     public boolean isSameOneAlive() {
         boolean result = false;
         for (Character aListDetach : characterList) {
@@ -73,7 +91,9 @@ public class Team {
         return result;
     }
 
-    //    список живых персонажей
+    /**
+     * @return список живых персонажей.
+     */
     public List<Character> getLiveCharacterList() {
         ArrayList<Character> list = new ArrayList<>();
         for (Character c : characterList) {
@@ -84,7 +104,9 @@ public class Team {
         return list;
     }
 
-    //    получить случайный живой персонаж
+    /**
+     * @return случайный живой персонаж.
+     */
     public Character getRandomLiveCharacter() {
         int index = Random.randomInt(0, getLiveCharacterList().size() - 1);
         return getLiveCharacterList().get(index);

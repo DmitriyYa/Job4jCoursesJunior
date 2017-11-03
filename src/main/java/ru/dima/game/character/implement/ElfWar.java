@@ -16,23 +16,38 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class ElfWar extends Character implements AttackWar {
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(ElfWar.class);
 
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public ElfWar() {
         setRace(Race.Elf);
         setRole(Role.ElfWar);
     }
 
-    //    атаковать мечом (нанесение урона 15 HP)
+    /**
+     * атаковать мечом (нанесение урона 15 HP).
+     *
+     * @param character противник.
+     */
     public void attackWar(Character character) {
-            if (isPrivileged()) {
-                setAttackPower(15 * 1.5);
-                character.setDamageLiveValue(getAttackPower());
-            } else
-                setAttackPower(15);
-                character.setDamageLiveValue(getAttackPower());
+        if (isPrivileged()) {
+            setAttackPower(15 * 1.5);
+            character.setDamageLiveValue(getAttackPower());
+        } else {
+            setAttackPower(15);
+            character.setDamageLiveValue(getAttackPower());
+        }
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -42,10 +57,13 @@ public class ElfWar extends Character implements AttackWar {
         this.setPrivileged(false);
 
         //логи
-        MyLog.readLog(log,Game.count,this,character,getAttackPower(),character.isLive());
+        MyLog.readLog(log, Game.count, this, character, getAttackPower(), character.isLive());
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Воин Эльф";

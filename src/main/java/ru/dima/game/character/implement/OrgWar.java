@@ -16,24 +16,39 @@ import ru.dima.game.utils.Random;
  * Copyright © LLP JazzSoft
  */
 public class OrgWar extends Character implements AttackWar {
-
+    /**
+     * Логируем действия в классе.
+     */
     private static final Logger log = Logger.getLogger(OrgWar.class);
 
+
+    /**
+     * В конструкторе присваиваем рассу и роль.
+     */
     public OrgWar() {
         setRace(Race.Org);
         setRole(Role.OrgWar);
     }
 
-    //    атака дубиной (нанесение урона 20 HP)
+    /**
+     * атака дубиной (нанесение урона 20 HP).
+     *
+     * @param character противник.
+     */
     public void attackWar(Character character) {
         if (isPrivileged()) {
             setAttackPower(20 * 1.5);
             character.setDamageLiveValue(getAttackPower());
-        } else
+        } else {
             setAttackPower(20);
             character.setDamageLiveValue(getAttackPower());
+        }
     }
 
+    /**
+     * @param team    команда нападающего.
+     * @param oponent команда противника.
+     */
     @Override
     public void makeMove(Team team, Team oponent) {
         int i = Random.randomInt(0, 2);
@@ -43,10 +58,13 @@ public class OrgWar extends Character implements AttackWar {
         this.setPrivileged(false);
 
         //логи
-        MyLog.readLog(log,Game.count,this,character,getAttackPower(),character.isLive());
+        MyLog.readLog(log, Game.count, this, character, getAttackPower(), character.isLive());
         Game.count++;
     }
 
+    /**
+     * @return возвращаем рассу и роль персонажа.
+     */
     @Override
     public String toString() {
         return "Воин орг";

@@ -4,13 +4,17 @@ package ru.dima.game.character;
  * Атака лучника
  */
 public interface AttackArcher {
+
     /**
-     * Стрелять
+     * стрелять.
+     * @param character противник.
      */
     void shoot(Character character);
 
+
     /**
-     * Атакавать
+     * атаковать.
+     * @param character противник.
      */
     void attackArcher(Character character);
 

@@ -7,22 +7,34 @@ import ru.dima.game.alianse.Team;
  */
 public abstract class Character {
 
-    //    Начальная жизнь при создании пресонажа.
+    /**
+     * Начальная жизнь при создании пресонажа.
+     */
     private double liveValue = 100;
 
-    //    Живой
+    /**
+     * Живой.
+     */
     private boolean isLive = true;
 
-    //    привелегированный
+    /**
+     * привелегированный.
+     */
     private boolean isPrivileged = false;
 
-    //    расса
+    /**
+     * расса.
+     */
     private Race race;
 
-    //    сила атаки
+    /**
+     * сила атаки.
+     */
     private double attackPower;
 
-    //    роль
+    /**
+     * роль.
+     */
     private Role role;
 
     public Role getRole() {
