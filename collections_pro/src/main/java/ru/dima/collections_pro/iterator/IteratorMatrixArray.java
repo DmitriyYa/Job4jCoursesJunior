@@ -49,19 +49,19 @@ public class IteratorMatrixArray implements Iterator {
     @Override
     public Object next() throws NoSuchElementException {
         int result;
+
         if (lastElementExternalArray()) {
             result = values[indexI][indexJ];
             System.out.println("последний элемент внешнего массива - " + result);
             throw new NoSuchElementException();
-        }
-        if (lastElementInternalArray()) {
-            result = values[indexI][indexJ];
-            indexI++;
+        } else if (lastElementInternalArray()) {
+            result = values[indexI++][indexJ];
+//            indexI++;
             indexJ = 0;
             System.out.println("последний элемент внутреннего массива - " + result);
         } else {
-            result = values[indexI][indexJ];
-            indexJ++;
+            result = values[indexI][indexJ++];
+//            indexJ++;
             System.out.println("элемент внутреннего массива - " + result);
         }
         return result;

@@ -57,7 +57,7 @@ public class IteratorEvenNumbers implements Iterator {
                 return values[result];
             }
         }
-        return new NoSuchElementException();
+        throw  new NoSuchElementException();
     }
 
     private boolean isEvenNumber(int i) {
