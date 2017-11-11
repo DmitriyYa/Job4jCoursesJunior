@@ -36,21 +36,12 @@ public class IteratorMatrixArray implements Iterator {
         this.values = values;
     }
 
-    public static void main(String[] args) {
-        int[][] v = new int[][]{{1, 2}, {3, 4, 5}, {6, 7}};
-        IteratorMatrixArray iteratorMatrixArray = new IteratorMatrixArray(v);
-        while (iteratorMatrixArray.hasNext()) {
-            iteratorMatrixArray.next();
-        }
-    }
-
     @Override
     public boolean hasNext() {
         boolean result = true;
-        if (values[indexI].length - 1 <= indexJ) {
-            if (values.length - 1 <= indexI) {
-                result = false;
-            }
+
+        if (lastElementExternalArray()) {
+            result = false;
         }
         return result;
     }
@@ -58,25 +49,38 @@ public class IteratorMatrixArray implements Iterator {
     @Override
     public Object next() throws NoSuchElementException {
         int result;
-//        если последний элемент внутреннего массива
-        if (values[indexI].length - 1 <= indexJ) {
-//            если последний элемент внешнего массива
-            if (values.length - 1 <= indexI) {
-                result = values[indexI][indexJ];
-                System.out.println(-1);
-            }
-//            переходим в след внутренний массив, на первый элемент
+        if (lastElementExternalArray()) {
+            result = values[indexI][indexJ];
+            System.out.println("последний элемент внешнего массива - " + result);
+            throw new NoSuchElementException();
+        }
+        if (lastElementInternalArray()) {
             result = values[indexI][indexJ];
             indexI++;
             indexJ = 0;
-            System.out.println(result);
-
-//            иначе переходим на следующий элемент внутри внутреннего массива.
+            System.out.println("последний элемент внутреннего массива - " + result);
         } else {
-            result= values[indexI][indexJ];
+            result = values[indexI][indexJ];
             indexJ++;
-            System.out.println(result);
+            System.out.println("элемент внутреннего массива - " + result);
         }
         return result;
     }
+
+
+    /**
+     * @return последний элемент внутреннего массива
+     */
+    private boolean lastElementInternalArray() {
+        return values[indexI].length - 1 == indexJ;
+    }
+
+
+    /**
+     * @return последний элемент внешнего массива
+     */
+    private boolean lastElementExternalArray() {
+        return lastElementInternalArray() && values.length - 1 == indexI;
+    }
+
 }
