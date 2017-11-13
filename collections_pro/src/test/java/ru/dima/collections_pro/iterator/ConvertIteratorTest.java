@@ -18,7 +18,7 @@ public class ConvertIteratorTest {
         Iterator<Integer> it2 = Arrays.asList(4, 5, 6).iterator();
         Iterator<Integer> it3 = Arrays.asList(7, 8, 9).iterator();
         Iterator<Iterator<Integer>> its = Arrays.asList(it1, it2, it3).iterator();
-        ConvertIterator converter = new ConvertIterator(its);
+        ConvertIterator converter = new ConvertIterator();
         it = converter.convert(its);
     }
 

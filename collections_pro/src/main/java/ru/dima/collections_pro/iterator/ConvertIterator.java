@@ -1,7 +1,6 @@
 package ru.dima.collections_pro.iterator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Реализовать класс с методом Iterator<Integer> convert(Iterator<Iterator<Integer>> it).
@@ -30,48 +29,47 @@ import java.util.Iterator;
  * <p>
  * Метод не должен копировать данные. Нужно реализовать итератор, который будет пробегать по вложенными итераторам без копирования данных.
  */
-public class ConvertIterator implements Iterator {
+public class ConvertIterator {
 
-    private final Iterator<Iterator<Integer>> values;
-
-    public ConvertIterator(Iterator<Iterator<Integer>> values) {
-        this.values = values;
+    public Iterator<Integer> convert(Iterator<Iterator<Integer>> its) {
+        return new GroupIterator(its);
     }
 
-    @Override
-    public boolean hasNext() {
-        return false;
-    }
+    class GroupIterator implements Iterator {
+        private final Iterator<Iterator<Integer>> iterator;
+        private Iterator<Integer> currentIterator;
 
-    @Override
-    public Object next() {
-        return null;
-    }
-
-    public Iterator<Integer> convert(Iterator<Iterator<Integer>> itertIter) {
-        ArrayList<Integer> values=new ArrayList<>();
-
-        ResultIterator resulrIterator = new ResultIterator(values);
-
-        return resulrIterator;
-    }
-
-    private class ResultIterator implements Iterator {
-        private final ArrayList<Integer> values;
-        private int index = 0;
-
-        private ResultIterator(ArrayList<Integer> values) {
-            this.values = values;
+        public GroupIterator(Iterator<Iterator<Integer>> iterator) {
+            this.iterator = iterator;
         }
 
         @Override
         public boolean hasNext() {
-            return values.size() > index;
+            selectCurrentIterator();
+            return (currentIterator != null && currentIterator.hasNext());
         }
 
         @Override
-        public Object next() {
-            return values.get(index++);
+        public Integer next() {
+            selectCurrentIterator();
+            if (currentIterator == null) {
+                throw new NoSuchElementException();
+            }
+            return currentIterator.next();
+        }
+
+        private void selectCurrentIterator() {
+            if (currentIterator != null && currentIterator.hasNext()) {
+                return;
+            }
+            currentIterator = null;
+            while (iterator.hasNext()) {
+                Iterator<Integer> nextIterator = iterator.next();
+                if (nextIterator.hasNext()) {
+                    currentIterator = nextIterator;
+                    break;
+                }
+            }
         }
     }
 }
