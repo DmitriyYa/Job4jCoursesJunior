@@ -31,6 +31,10 @@ import java.util.*;
  */
 public class ConvertIterator {
 
+    /**
+     * @param its итератор итераторов
+     * @return итератор, проходящий по всем внутренним итераторам
+     */
     public Iterator<Integer> convert(Iterator<Iterator<Integer>> its) {
         return new GroupIterator(its);
     }
@@ -58,6 +62,9 @@ public class ConvertIterator {
             return currentIterator.next();
         }
 
+        /**
+         * получить следующий итератор
+         */
         private void selectCurrentIterator() {
             if (currentIterator != null && currentIterator.hasNext()) {
                 return;
