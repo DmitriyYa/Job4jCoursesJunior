@@ -41,6 +41,7 @@ public class IteratorPrimes implements Iterator {
     public boolean hasNext() {
         for (int i = index; i < values.length; i++) {
             if (isPrime(values[i])) {
+                index=i; //1. сделай. чтобы в методе hasNext переводиться указатель на простое число.
                 return true;
             }
         }
@@ -49,17 +50,19 @@ public class IteratorPrimes implements Iterator {
 
     @Override
     public Object next() {
-        int result;
-        for (int i = index; i < values.length; i++) {
-            if (isPrime(values[i])) {
-                result = i;
-                index = i + 1;
-                return values[result];
-            }
+        if (!hasNext()){
+            throw new NoSuchElementException();
         }
-        throw  new NoSuchElementException();
+        else {
+            return values[index++];
+        }
     }
 
+    /**
+     *
+     * @param i число для проверки.
+     * @return простое ли число.
+     */
     private boolean isPrime(int i) {
         Integer integer = i;
         if (i==1){
@@ -67,11 +70,5 @@ public class IteratorPrimes implements Iterator {
         }
         BigInteger bigInteger = BigInteger.valueOf(integer);
         return bigInteger.isProbablePrime((int) Math.log(integer));
-    }
-
-    public static void main(String[] args) {
-        IteratorPrimes it = new IteratorPrimes(new int[]{1, 2, 3, 4, 5, 6, 7, 3571});
-        System.out.println("Возвращает - "+it.hasNext()+", должен вернуть - true");
-        System.out.println("Возвращает - "+it.next()+", должен вернуть - 2");
     }
 }

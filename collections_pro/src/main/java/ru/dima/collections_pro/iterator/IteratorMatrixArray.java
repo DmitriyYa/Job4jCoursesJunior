@@ -29,8 +29,8 @@ public class IteratorMatrixArray implements Iterator {
     /**
      * Счетчик
      */
-    private int indexI = 0;
-    private int indexJ = 0;
+    private int row = 0;
+    private int column = 0;
 
     public IteratorMatrixArray(final int[][] values) {
         this.values = values;
@@ -38,49 +38,19 @@ public class IteratorMatrixArray implements Iterator {
 
     @Override
     public boolean hasNext() {
-        boolean result = true;
-
-        if (lastElementExternalArray()) {
-            result = false;
-        }
-        return result;
+        return this.values.length > row || this.values[row].length > column;
     }
 
     @Override
     public Object next() throws NoSuchElementException {
-        int result;
-
-        if (lastElementExternalArray()) {
-            result = values[indexI][indexJ];
-            System.out.println("последний элемент внешнего массива - " + result);
+        if (!hasNext()) {
             throw new NoSuchElementException();
-        } else if (lastElementInternalArray()) {
-            result = values[indexI++][indexJ];
-//            indexI++;
-            indexJ = 0;
-            System.out.println("последний элемент внутреннего массива - " + result);
-        } else {
-            result = values[indexI][indexJ++];
-//            indexJ++;
-            System.out.println("элемент внутреннего массива - " + result);
+        } else if (values[row].length - 1 == column) {
+            return values[row++][column=0];
         }
-        return result;
-    }
-
-
-    /**
-     * @return последний элемент внутреннего массива
-     */
-    private boolean lastElementInternalArray() {
-        return values[indexI].length - 1 == indexJ;
-    }
-
-
-    /**
-     * @return последний элемент внешнего массива
-     */
-    private boolean lastElementExternalArray() {
-        return lastElementInternalArray() && values.length - 1 == indexI;
+        else {
+            return values[row][column++];
+        }
     }
 
 }
