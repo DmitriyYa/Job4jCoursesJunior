@@ -25,14 +25,14 @@ public interface Store<T extends Base> {
      * @param model
      * @return
      */
-    T add(T model);
+    void add(T model);
 
     /**
      * обновить
      * @param model
      * @return
      */
-    T update(T model);
+    boolean update(T model);
 
     /**
      * удалить
@@ -40,4 +40,5 @@ public interface Store<T extends Base> {
      * @return
      */
     boolean delete(String id);
+
 }

@@ -7,7 +7,7 @@ import java.util.Iterator;
  *
  * @param <T>
  */
-public class SimpleArray<T> implements Iterator {
+public class SimpleArray<T> {
     private Object[] objects;
     private int index = 0;
 
@@ -16,6 +16,13 @@ public class SimpleArray<T> implements Iterator {
      */
     public SimpleArray(int size) {
         this.objects = new Object[size];
+    }
+
+    /**
+     * @return
+     */
+    public int getSize() {
+        return objects.length;
     }
 
     /**
@@ -60,20 +67,12 @@ public class SimpleArray<T> implements Iterator {
      * @param value
      * @return
      */
-    public boolean update(int position, int value) {
+    public boolean update(int position, T value) {
         if (position >= 0 && position < objects.length) {
             this.objects[position] = value;
             return true;
         } else {
             return false;
         }
-    }
-
-    public boolean hasNext() {
-        return objects.length > index;
-    }
-
-    public Object next() {
-        return objects[index++];
     }
 }

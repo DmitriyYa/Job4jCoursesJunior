@@ -5,8 +5,18 @@ package ru.dima.collections_pro.generic;
  */
 
 public abstract class Base {
+    private  String id;
 
-    abstract String getId();
-    abstract void setId(String id);
+    public Base(String id) {
+        this.id = id;
+    }
+
+    String getId() {
+        return id;
+    }
+
+    void setId(String id) {
+        this.id = id;
+    }
 
 }
