@@ -1,13 +1,13 @@
 package ru.dima.collections_pro.generic;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Доделать контейнер SimpleArray<T> добавить методы add, update, delete, get(int index);
  *
  * @param <T>
  */
-public class SimpleArray<T> {
+public class SimpleArray<T> implements Iterator {
     private Object[] objects;
     private int index = 0;
 
@@ -22,7 +22,13 @@ public class SimpleArray<T> {
      * @param value
      */
     public void add(T value) {
-        this.objects[index++] = value;
+        if (index == objects.length - 1) {
+            Object[] tmp = objects;
+            objects = new Object[objects.length * 2];
+            System.arraycopy(tmp, 0, objects, 0, tmp.length);
+        } else {
+            this.objects[index++] = value;
+        }
     }
 
     /**
@@ -30,21 +36,44 @@ public class SimpleArray<T> {
      * @return
      */
     public T get(int position) {
-        return (T) this.objects[position];
+        if (position >= 0 && position < objects.length) {
+            return (T) this.objects[position];
+        } else return null;
     }
+
 
     /**
      * @param position
+     * @return
      */
-    public void delete(int position) {
-        this.objects[position] = null;
+    public boolean delete(int position) {
+        if (position >= 0 && position < objects.length) {
+            this.objects[position] = null;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * @param position
      * @param value
+     * @return
      */
-    public void update(int position, int value) {
-        this.objects[position] = value;
+    public boolean update(int position, int value) {
+        if (position >= 0 && position < objects.length) {
+            this.objects[position] = value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean hasNext() {
+        return objects.length > index;
+    }
+
+    public Object next() {
+        return objects[index++];
     }
 }

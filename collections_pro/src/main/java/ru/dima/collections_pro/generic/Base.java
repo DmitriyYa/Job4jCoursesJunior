@@ -6,9 +6,7 @@ package ru.dima.collections_pro.generic;
 
 public abstract class Base {
 
-    String getId() {
-        return null;
-    };
-    void setId(String id){};
+    abstract String getId();
+    abstract void setId(String id);
 
 }
