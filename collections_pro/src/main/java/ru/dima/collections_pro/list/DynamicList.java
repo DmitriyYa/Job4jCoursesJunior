@@ -1,8 +1,6 @@
 package ru.dima.collections_pro.list;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * 5.3.1. Создать динамический список на базе массива. [#158]
@@ -11,7 +9,7 @@ import java.util.List;
  * <p>
  * add(E value);
  * <p>
- * E get(int index);
+ * E get(int count);
  * <p>
  * и реализовать для него Iterable<E>.
  * <p>
@@ -28,9 +26,14 @@ public class DynamicList<E> implements SimpleContainer<E> {
      */
     private Object[] container;
     /**
-     * Индекс.
+     * Счетчик кол-ва элементов коллекции.
      */
-    private int index;
+    private int count=0;
+
+    /**
+     * Индекс для обхода коллекции иетратором.
+     */
+    private int index=0;
 
     /**
      * @param size размер массива
@@ -51,14 +54,15 @@ public class DynamicList<E> implements SimpleContainer<E> {
      * @param value
      */
     @Override
-    public void add(E value) {
-        if (index == container.length - 1) {
+    public boolean  add(E value) {
+        if (count > container.length - 1) {
             Object[] tmp = container;
             container = new Object[container.length * 2];
             System.arraycopy(tmp, 0, container, 0, tmp.length);
         } else {
-            this.container[index++] = value;
+            this.container[count++] = value;
         }
+        return true;
     }
 
     /**

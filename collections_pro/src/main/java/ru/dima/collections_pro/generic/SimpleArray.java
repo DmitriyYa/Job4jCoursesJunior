@@ -29,7 +29,7 @@ public class SimpleArray<T> {
      * @param value
      */
     public void add(T value) {
-        if (index == objects.length - 1) {
+        if (index > objects.length - 1) {
             Object[] tmp = objects;
             objects = new Object[objects.length * 2];
             System.arraycopy(tmp, 0, objects, 0, tmp.length);
@@ -44,7 +44,7 @@ public class SimpleArray<T> {
      */
     public T get(int position) {
         if (position >= 0 && position < objects.length) {
-            return (T) this.objects[position];
+            return (T) objects[position];
         } else return null;
     }
 

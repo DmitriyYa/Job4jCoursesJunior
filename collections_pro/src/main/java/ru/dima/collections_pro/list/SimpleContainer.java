@@ -1,7 +1,7 @@
 package ru.dima.collections_pro.list;
 
 public interface SimpleContainer<E> extends Iterable<E> {
-    void add(E e);
+    boolean add(E e);
 
     E get(int index);
 }
