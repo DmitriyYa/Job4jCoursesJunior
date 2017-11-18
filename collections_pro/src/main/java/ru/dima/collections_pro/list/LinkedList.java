@@ -27,7 +27,7 @@ public class LinkedList<E> implements SimpleContainer<E> {
     /**
      * размер коллекции.
      */
-    private int size;
+    private int size=0;
 
     /**
      * Первый элемент коллекции
@@ -46,6 +46,13 @@ public class LinkedList<E> implements SimpleContainer<E> {
 
         last = new Node<E>(first, null, null);
         first = new Node<E>(null, null, last);
+    }
+
+    /**
+     * @return размер контейнера.
+     */
+    public int getSize() {
+        return size;
     }
 
     /**
@@ -75,7 +82,7 @@ public class LinkedList<E> implements SimpleContainer<E> {
     }
 
     /**
-     * Итератор для прохождения коллекции.
+     * Итератор для прохождения коллекции, от начала к концу
      *
      * @return итератор.
      */
@@ -97,11 +104,32 @@ public class LinkedList<E> implements SimpleContainer<E> {
     }
 
     /**
+     * Итератор для прохождения коллекции, с конца в начало.
+     *
+     * @return итератор.
+     */
+    protected Iterator<E> descendingIterator() {
+        return new Iterator<E>() {
+            int counter = size - 1;
+
+            @Override
+            public boolean hasNext() {
+                return counter >= 0;
+            }
+
+            @Override
+            public E next() {
+                return getElementByIndex(counter--);
+            }
+        };
+    }
+
+    /**
      * Добавить элемент в конец списка.
      *
      * @param e элемент.
      */
-    private void addElementLast(E e) {
+    void addElementLast(E e) {
         Node<E> l = last;
         l.setItem(e);
         last = new Node<>(l, null, null);
@@ -111,11 +139,25 @@ public class LinkedList<E> implements SimpleContainer<E> {
     }
 
     /**
+     * Добавить элемент в начало списка.
+     *
+     * @param e элемент.
+     */
+    void addElementFirst(E e) {
+        Node<E> f = first;
+        f.setItem(e);
+        first = new Node<>(null, null, f);
+        f.prev = first;
+        size++;
+    }
+
+    /**
      * Вернуть элемент по индексу.
+     *
      * @param index индекс.
      * @return элемент.
      */
-    private E getElementByIndex(int index) {
+    E getElementByIndex(int index) {
         Node<E> x = first;
         for (int i = 0; i <= index; i++)
             x = x.next;
@@ -142,6 +184,49 @@ public class LinkedList<E> implements SimpleContainer<E> {
         return f.item;
     }
 
+    /**
+     * Удаляет первый элемент контейнера.
+     * @return первый элемент контейнера.
+     */
+    public E removeFirst() {
+        final Node<E> f = first;
+        if (f == null){
+            throw new NoSuchElementException();
+        }
+        final E element = f.item;
+        final Node<E> next = f.next;
+        f.item = null;
+        f.next = null;
+        first = next;
+        if (next == null)
+            last = null;
+        else
+            next.prev = null;
+        size--;
+        return element;
+    }
+
+    /**
+     * Удаляет последний элемент контейнера.
+     * @return последний элемент контейнера.
+     */
+    public E removeLast() {
+        final Node<E> l = last;
+        if (l == null){
+            throw new NoSuchElementException();
+        }
+        final E element = l.item;
+        final Node<E> prev = l.prev;
+        l.item = null;
+        l.prev = null; // help GC
+        last = prev;
+        if (prev == null)
+            first = null;
+        else
+            prev.next = null;
+        size--;
+        return element;
+    }
     /**
      * @param <E>
      */
