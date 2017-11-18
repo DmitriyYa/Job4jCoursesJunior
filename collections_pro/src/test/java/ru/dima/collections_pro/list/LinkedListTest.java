@@ -6,24 +6,29 @@ import static org.junit.Assert.*;
 
 public class LinkedListTest {
 
-    LinkedList<String> linkedList;
+    LinkedList<Integer> linkedList;
+
+    @Test
+    public void get() throws Exception {
+        Integer i=0;
+        linkedList = new LinkedList<>();
+        linkedList.add(0);
+        linkedList.add(1);
+        assertEquals(linkedList.get(0),i);
+    }
 
     @Test
     public void add() throws Exception {
         linkedList = new LinkedList<>();
-        linkedList.add("0");
-        linkedList.add("1");
-        linkedList.add("2");
-        assertEquals(linkedList.get(2),"2");
-    }
+        Integer count=0;
+        linkedList.add(0);
+        linkedList.add(1);
+        linkedList.add(2);
+        for (Integer i : linkedList) {
+            assertEquals(i,count++);
+        }
 
-//    @Test
-//    public void nextNode() throws Exception {
-//        linkedList = new LinkedList<>();
-//        linkedList.add("0");
-//        linkedList.add("1");
-//        linkedList.add("2");
-//        assertEquals(linkedList.nextNode(1),);
-//    }
+
+    }
 
 }

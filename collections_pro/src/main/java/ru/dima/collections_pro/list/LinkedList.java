@@ -1,6 +1,7 @@
 package ru.dima.collections_pro.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -22,6 +23,7 @@ import java.util.Iterator;
  */
 public class LinkedList<E> implements SimpleContainer<E> {
 
+
     /**
      * размер коллекции.
      */
@@ -30,101 +32,119 @@ public class LinkedList<E> implements SimpleContainer<E> {
     /**
      * Первый элемент коллекции
      */
-    Node<E> first;
+    private Node<E> first;
 
     /**
      * Последний элемент коллекции.
      */
-    Node<E> last;
+    private Node<E> last;
 
     /**
      * конструктор по умолчанию.
      */
     public LinkedList() {
-        this.size = 10;
+
+        last = new Node<E>(first, null, null);
+        first = new Node<E>(null, null, last);
     }
 
     /**
      * Добавить эалемент в коллекцию.
      *
-     * @param e
-     * @return
+     * @param e - элемент.
+     * @return результат.
      */
     @Override
     public boolean add(E e) {
-        linkLast(e);
+        addElementLast(e);
         return true;
     }
 
     /**
      * Получить элемент коллекции по индексу.
      *
-     * @param index
-     * @return
+     * @param index индекс.
+     * @return элемент.
      */
     @Override
     public E get(int index) {
         if (!(index >= 0 && index < size)) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-        return node(index).item;
+        return getElementByIndex(index);
     }
 
     /**
      * Итератор для прохождения коллекции.
      *
-     * @return
+     * @return итератор.
      */
     @Override
     public Iterator<E> iterator() {
-        Iterator<E> iterator = new Iterator<E>() {
+        return new Iterator<E>() {
+            int counter = 0;
+
             @Override
             public boolean hasNext() {
-
-                return false;
+                return counter < size;
             }
 
             @Override
             public E next() {
-                return null;
+                return getElementByIndex(counter++);
             }
         };
-        return iterator;
     }
 
     /**
-     * @param e
+     * Добавить элемент в конец списка.
+     *
+     * @param e элемент.
      */
-    private void linkLast(E e) {
-        final Node<E> l = last; // l присваиваем последний элемент коллекции
-        final Node<E> newNode = new Node<>(l, e, null); // создаем новый элеменит, с указанием предшествующего.
-        last = newNode; //последнему элементу коллекции присваиваем созданный элемент.
-        if (l == null)// еслиследующего элемента нет, значит нет вообще элементов
-            first = newNode; // создаем первый элемент
-        else
-            l.next = newNode; //текущеу элементу присваиваем ссылку на следующий
+    private void addElementLast(E e) {
+        Node<E> l = last;
+        l.setItem(e);
+        last = new Node<>(l, null, null);
+        l.next = last;
         size++;
 
     }
 
     /**
-     * @param index
-     * @return
+     * Вернуть элемент по индексу.
+     * @param index индекс.
+     * @return элемент.
      */
-    Node<E> node(int index) {
-        if (index < (size >> 1)) {
-            Node<E> x = first;
-            for (int i = 0; i < index; i++)
-                x = x.next;
-            return x;
-        } else {
-            Node<E> x = last;
-            for (int i = size - 1; i > index; i--)
-                x = x.prev;
-            return x;
-        }
+    private E getElementByIndex(int index) {
+        Node<E> x = first;
+        for (int i = 0; i <= index; i++)
+            x = x.next;
+        return x.item;
     }
 
+    /**
+     * @return последний элемент списка
+     */
+    E getElementLast() {
+        final Node<E> l = last;
+        if (l == null)
+            throw new NoSuchElementException();
+        return l.item;
+    }
+
+    /**
+     * @return первый элемент списка
+     */
+    E getElementFirst() {
+        final Node<E> f = first;
+        if (f == null)
+            throw new NoSuchElementException();
+        return f.item;
+    }
+
+    /**
+     * @param <E>
+     */
     private static class Node<E> {
         E item;
         Node<E> next;
@@ -134,6 +154,10 @@ public class LinkedList<E> implements SimpleContainer<E> {
             this.item = element;
             this.next = next;
             this.prev = prev;
+        }
+
+        void setItem(E e) {
+            item = e;
         }
     }
 }
