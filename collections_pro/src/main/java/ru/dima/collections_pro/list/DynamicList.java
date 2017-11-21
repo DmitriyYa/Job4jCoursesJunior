@@ -1,5 +1,6 @@
 package ru.dima.collections_pro.list;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -28,12 +29,7 @@ public class DynamicList<E> implements SimpleContainer<E> {
     /**
      * Счетчик кол-ва элементов коллекции.
      */
-    private int count=0;
-
-    /**
-     * Индекс для обхода коллекции иетратором.
-     */
-    private int index=0;
+    private int count = 0;
 
     /**
      * @param size размер массива
@@ -46,44 +42,49 @@ public class DynamicList<E> implements SimpleContainer<E> {
      * @return размер массива
      */
     public int getSize() {
-        return container.length;
+        return count;
     }
 
     /**
      * Добавить элемент в коллекцию.
+     *
      * @param value
      */
     @Override
-    public boolean  add(E value) {
-        if (count > container.length - 1) {
-            Object[] tmp = container;
-            container = new Object[container.length * 2];
-            System.arraycopy(tmp, 0, container, 0, tmp.length);
-        } else {
-            this.container[count++] = value;
-        }
+    public boolean add(E value) {
+        this.IncreaseArray();
+        this.container[count++] = value;
         return true;
     }
 
     /**
      * Поличить элемент коллекции по индексу
+     *
      * @param index
      * @return
      */
     @Override
     public E get(int index) {
+        E result = null;
         if (index >= 0 && index < container.length) {
-            return (E) this.container[index];
-        } else return null;
+            result = (E) this.container[index];
+        }
+        return result;
     }
 
     /**
      * Итератор
+     *
      * @return
      */
     @Override
     public Iterator<E> iterator() {
+
+
         Iterator<E> iterator = new Iterator<E>() {
+
+            int index = 0;
+
             @Override
             public boolean hasNext() {
                 return index < getSize() && container[index] != null;
@@ -95,5 +96,14 @@ public class DynamicList<E> implements SimpleContainer<E> {
             }
         };
         return iterator;
+    }
+
+    /**
+     * Если массив меньше счетчика, увеличить массив в два раза.
+     */
+    private void IncreaseArray() {
+        if (count > container.length - 1) {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
     }
 }

@@ -42,7 +42,7 @@ public class DynamicListTest {
 
     @Test
     public void checkGetSizeMethod(){
-        DynamicList<String> dynamicList = new DynamicList<>(10);
+        DynamicList<String> dynamicList = new DynamicList<>(3);
         dynamicList.add("0");
         dynamicList.add("1");
         dynamicList.add("2");
@@ -51,6 +51,6 @@ public class DynamicListTest {
         dynamicList.add("5");
         dynamicList.add("6");
         dynamicList.add("7");
-        assertThat(dynamicList.getSize(), is(10));
+        assertThat(dynamicList.getSize(), is(8));
     }
 }
