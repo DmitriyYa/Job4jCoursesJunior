@@ -7,12 +7,12 @@ import java.util.NoSuchElementException;
 /**
  * 1. Реализовать коллекцию Set на массиве.
  * <p>
- * Реализовать коллекцию SimpleSet.
+ * Реализовать коллекцию ArraySimpleSet.
  * Коллекция должна обеспечивать void add(E e) и реализовывать Iterator<E>.
  * Коллекция не должна хранить дубликаты.
  * Set - внутри для хранения данных использует обычные массивы.
  */
-public class SimpleSet<E> implements Iterator {
+public class ArraySimpleSet<E> implements Iterator {
 
     /**
      * массив объектов.
@@ -28,7 +28,7 @@ public class SimpleSet<E> implements Iterator {
     /**
      * конструктор по умолчанию.
      */
-    public SimpleSet() {
+    public ArraySimpleSet() {
         objects = new Object[10];
     }
 
