@@ -49,7 +49,7 @@ public class SimpleQueue<T> {
      * @param value элемент.
      */
     public void push(T value) {
-        linkedList.addElementFirst(value);
+        linkedList.addElementLast(value);
     }
 
 
