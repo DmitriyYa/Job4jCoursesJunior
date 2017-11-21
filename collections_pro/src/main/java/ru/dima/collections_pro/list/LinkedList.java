@@ -42,11 +42,7 @@ public class LinkedList<E> implements SimpleContainer<E> {
     /**
      * конструктор по умолчанию.
      */
-    public LinkedList() {
-
-        last = new Node<E>(first, null, null);
-        first = new Node<E>(null, null, last);
-    }
+    public LinkedList() { }
 
     /**
      * @return размер контейнера.
@@ -65,6 +61,38 @@ public class LinkedList<E> implements SimpleContainer<E> {
     public boolean add(E e) {
         addElementLast(e);
         return true;
+    }
+
+    /**
+     * Добавить элемент в конец списка.
+     *
+     * @param e элемент.
+     */
+    void addElementLast(E e) {
+        final Node<E> l = last;
+        final Node<E> newNode = new Node<>(l, e, null);
+        last = newNode;
+        if (l == null)
+            first = newNode;
+        else
+            l.next = newNode;
+        size++;
+    }
+
+    /**
+     * Добавить элемент в начало списка.
+     *
+     * @param e элемент.
+     */
+    void addElementFirst(E e) {
+        final Node<E> f = first;
+        final Node<E> newNode = new Node<>(null, e, f);
+        first = newNode;
+        if (f == null)
+            last = newNode;
+        else
+            f.prev = newNode;
+        size++;
     }
 
     /**
@@ -124,32 +152,6 @@ public class LinkedList<E> implements SimpleContainer<E> {
         };
     }
 
-    /**
-     * Добавить элемент в конец списка.
-     *
-     * @param e элемент.
-     */
-    void addElementLast(E e) {
-        Node<E> l = last;
-        l.setItem(e);
-        last = new Node<>(l, null, null);
-        l.next = last;
-        size++;
-
-    }
-
-    /**
-     * Добавить элемент в начало списка.
-     *
-     * @param e элемент.
-     */
-    void addElementFirst(E e) {
-        Node<E> f = first;
-        f.setItem(e);
-        first = new Node<>(null, null, f);
-        f.prev = first;
-        size++;
-    }
 
     /**
      * Вернуть элемент по индексу.
@@ -159,7 +161,7 @@ public class LinkedList<E> implements SimpleContainer<E> {
      */
     E getElementByIndex(int index) {
         Node<E> x = first;
-        for (int i = 0; i <= index; i++)
+        for (int i = 0; i < index; i++)
             x = x.next;
         return x.item;
     }
