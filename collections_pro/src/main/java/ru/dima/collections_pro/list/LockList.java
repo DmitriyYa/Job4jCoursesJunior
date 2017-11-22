@@ -33,12 +33,14 @@ public class LockList<T> {
      * @param first первый элемент списка.
      * @return true если есть замыкание.
      */
-    public boolean hasCycle(Node first) {
+    public boolean hasCycle(Node<T> first) {
 
         boolean isTrue = true;
-        boolean result=false;
-        Node agentA = first;
-        Node agentB = agentA.next;
+        boolean result = false;
+
+        Node<T> agentA = first;
+        Node<T> agentB = agentA.next;
+
 
         while (isTrue) {
             agentA = agentA.next;
@@ -47,9 +49,9 @@ public class LockList<T> {
                     return result;
                 }
                 agentB = agentB.next;
-                if (agentA == agentB) {
+                if (agentA == agentB || agentB.value !=null) {
                     isTrue = false;
-                    result=true;
+                    result = true;
                 }
             }
         }

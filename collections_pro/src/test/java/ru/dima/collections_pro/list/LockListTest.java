@@ -16,7 +16,7 @@ public class LockListTest {
         first.next = two;
         two.next = third;
         third.next = four;
-        four.next = first;
+        four.next = third;
         assertTrue(lockList.hasCycle(first));
     }
 
