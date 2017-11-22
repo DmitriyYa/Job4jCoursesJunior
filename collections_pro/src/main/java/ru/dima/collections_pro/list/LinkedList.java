@@ -126,7 +126,12 @@ public class LinkedList<E> implements SimpleContainer<E> {
 
             @Override
             public E next() {
-                return getElementByIndex(counter++);
+                if (hasNext()){
+                    return getElementByIndex(counter++);
+                }
+                else {
+                    throw new NoSuchElementException();
+                }
             }
         };
     }
