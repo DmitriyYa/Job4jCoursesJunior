@@ -49,7 +49,7 @@ public class LockList<T> {
                     return result;
                 }
                 agentB = agentB.next;
-                if (agentA == agentB || agentB.value !=null) {
+                if (agentA.next == agentB.next && agentB.value != null) {
                     isTrue = false;
                     result = true;
                 }
