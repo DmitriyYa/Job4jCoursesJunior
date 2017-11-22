@@ -2,6 +2,7 @@ package ru.dima.collections_pro.list;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 5.3.1. Создать динамический список на базе массива. [#158]
@@ -52,7 +53,7 @@ public class DynamicList<E> implements SimpleContainer<E> {
      */
     @Override
     public boolean add(E value) {
-        this.IncreaseArray();
+        this.increaseArray();
         this.container[count++] = value;
         return true;
     }
@@ -92,7 +93,10 @@ public class DynamicList<E> implements SimpleContainer<E> {
 
             @Override
             public E next() {
-                return (E) container[index++];
+                if (hasNext()){
+                    return (E) container[index++];
+                }
+                else throw new NoSuchElementException();
             }
         };
         return iterator;
@@ -101,7 +105,7 @@ public class DynamicList<E> implements SimpleContainer<E> {
     /**
      * Если массив меньше счетчика, увеличить массив в два раза.
      */
-    private void IncreaseArray() {
+    private void increaseArray() {
         if (count > container.length - 1) {
             container = Arrays.copyOf(container, container.length * 2);
         }
