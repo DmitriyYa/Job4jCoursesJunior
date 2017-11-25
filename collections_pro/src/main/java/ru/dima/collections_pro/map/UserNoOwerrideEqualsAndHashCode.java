@@ -18,13 +18,16 @@ import java.util.Map;
  * <p>
  * Добавить два объекта. Вывести карту на печать. Описать полученный результат словами.
  */
-public class UserNoOwerrideEqualsAndHashCode {
+public class UserNoOwerrideEqualsAndHashCode extends User{
 
-    @Test
-    public  void NoOwerrideEqualsAndHashCode() {
+    private UserNoOwerrideEqualsAndHashCode(String name, int children, Calendar birthday) {
+        super(name, children, birthday);
+    }
+
+    public static void main(String[] args) {
         //Создать два объекта User, которые имеют одинаковые поля.
-        User user1 = new User("Dima", 3, new GregorianCalendar(1983, Calendar.APRIL, 15));
-        User user2 = new User("Dima", 3, new GregorianCalendar(1983, Calendar.APRIL, 15));
+        User user1 = new UserNoOwerrideEqualsAndHashCode("Dima", 3, new GregorianCalendar(1983, Calendar.APRIL, 15));
+        User user2 = new UserNoOwerrideEqualsAndHashCode("Dima", 3, new GregorianCalendar(1983, Calendar.APRIL, 15));
 
         //Создать карту Map<User, Object>
         Map<User, Object> map = new HashMap<>();
@@ -37,8 +40,8 @@ public class UserNoOwerrideEqualsAndHashCode {
         System.out.println(map);
 
         //Описать полученный результат словами.
-        //В коллекцию добалились две записи. Причем с одинаковым ключем и разными значениями.
+        //В коллекцию добалились две записи.
+        //У ключей хеш коды разные, значения тоже разные.
     }
-
 
 }
