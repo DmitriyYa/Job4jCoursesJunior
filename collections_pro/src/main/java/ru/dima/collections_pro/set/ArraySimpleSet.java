@@ -1,5 +1,6 @@
 package ru.dima.collections_pro.set;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -22,6 +23,11 @@ public class ArraySimpleSet<E> implements Iterator {
     /**
      * счетчик элементов.
      */
+    public int countElements = 0;
+
+    /**
+     * Индекс для прохождения коллекции.
+     */
     private int index = 0;
 
 
@@ -39,18 +45,9 @@ public class ArraySimpleSet<E> implements Iterator {
      * @param e элемент.
      */
     public void add(E e) {
-        if (index > objects.length - 1) {
-            Object[] tmp = objects;
-            objects = new Object[objects.length * 2];
-            System.arraycopy(tmp, 0, objects, 0, tmp.length);
-        } else {
-            for (int i = 0; i < objects.length; i++) {
-                if (objects[i] != null && objects[i].equals(e)) {
-                    objects[i] = e;
-                    return;
-                }
-            }
-            objects[index++] = e;
+        increaseArray();
+        if (!ifThereIsSuchAndElementToReplace(e)) {
+            objects[countElements++] = e;
         }
     }
 
@@ -65,7 +62,7 @@ public class ArraySimpleSet<E> implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return index < objects.length;
+        return index < countElements;
     }
 
     @Override
@@ -74,5 +71,29 @@ public class ArraySimpleSet<E> implements Iterator {
             return objects[index++];
         }
         throw new NoSuchElementException();
+    }
+
+    /**
+     * Если массив меньше счетчика, увеличить массив в два раза.
+     */
+    private void increaseArray() {
+        if (countElements > objects.length - 1) {
+            objects = Arrays.copyOf(objects, objects.length * 2);
+        }
+    }
+
+    /**
+     * если есть такой элемент заменить
+     */
+    private boolean ifThereIsSuchAndElementToReplace(E e) {
+        boolean result = false;
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] != null && objects[i].equals(e)) {
+                objects[i] = e;
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }
