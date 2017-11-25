@@ -234,6 +234,62 @@ public class LinkedList<E> implements SimpleContainer<E> {
         size--;
         return element;
     }
+
+
+    /**
+     * удаляет элемент
+     * @param o
+     * @return
+     */
+    public boolean remove(Object o){
+        if (o == null) {
+            for (Node<E> x = first; x != null; x = x.next) {
+                if (x.item == null) {
+                    notNull(x);
+                    return true;
+                }
+            }
+        } else {
+            for (Node<E> x = first; x != null; x = x.next) {
+                if (o.equals(x.item)) {
+                    notNull(x);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Проверяем что элемент не равен null
+     * @param x
+     * @return
+     */
+    E notNull(Node<E> x) {
+        final E element = x.item;
+        final Node<E> next = x.next;
+        final Node<E> prev = x.prev;
+
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            x.prev = null;
+        }
+
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+
+        x.item = null;
+        size--;
+        return element;
+    }
+
     /**
      * @param <E>
      */

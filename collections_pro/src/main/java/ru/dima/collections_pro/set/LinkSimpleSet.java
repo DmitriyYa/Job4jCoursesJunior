@@ -2,6 +2,8 @@ package ru.dima.collections_pro.set;
 
 import ru.dima.collections_pro.list.LinkedList;
 
+import java.util.Iterator;
+
 /**
  * Created by Dmitriy.Yakovlev
  * Created: 18.11.17 22:38
@@ -14,7 +16,7 @@ import ru.dima.collections_pro.list.LinkedList;
  * Коллекция не должна хранить дубликаты.
  * Set - внутри для хранения данных использует связный список.
  */
-public class LinkSimpleSet<E> extends LinkedList {
+public class LinkSimpleSet<E> implements Iterable<E> {
     /**
      * Контейнер.
      */
@@ -25,9 +27,38 @@ public class LinkSimpleSet<E> extends LinkedList {
     }
 
 
-    public void add(E e){
-       for (int i=0;i<linkedList.getSize();i++){
+    public void add(E e) {
+        if (!thereAreDuplicates(e)) {
+            linkedList.add(e);
+        }
+    }
 
-       }
+    @Override
+    public Iterator<E> iterator() {
+        return linkedList.iterator();
+    }
+
+
+    /**
+     * @return если есть дубликаты в коллекции, заменить. и вернуть true
+     */
+    private boolean thereAreDuplicates(E e) {
+        boolean result = false;
+        for (int i = 0; i < linkedList.getSize(); i++) {
+            if (e.equals(linkedList.get(i))) {
+                linkedList.remove(linkedList.get(i));
+                linkedList.add(e);
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @param index
+     * @return
+     */
+    public E get(int index) {
+        return linkedList.get(index);
     }
 }
